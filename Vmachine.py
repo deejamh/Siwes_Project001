@@ -59,3 +59,16 @@ def change(amount, notes, result = None):
         return change(amount % max_note, notes, result)
     
 note_list = [1000, 500, 400, 200, 100, 50]
+
+def formatter (amount, notes, result = None):
+    if amount < 0:
+        return []
+    result_notes = change(amount, notes, result=None)[1]
+    
+    change_given = []
+    for note in result_notes:
+        change_given.append(str(format(note /float(100), '.2f')))
+    return change_given
+
+def  add_change_log(code, input_val):
+    
