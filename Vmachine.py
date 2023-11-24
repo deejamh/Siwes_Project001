@@ -71,4 +71,47 @@ def formatter (amount, notes, result = None):
     return change_given
 
 def  add_change_log(code, input_val):
+    notes_given = formatter(int(float(format(input_val - product[code]['price'], '.2f')) * 100), [1000, 500, 400, 200, 100, 50])
     
+    change = [str(code).zfill(2), str(round(input_val, 2))]
+    change.extend(notes_given)
+    with open('changes.txt', 'a') as my_file:
+        my_file.write(', '.join(change))
+        my_file.write('\n')
+        
+def  add_product_log(code):
+    product_log = [str(code).zfill(2), product[code]['Product-name'], product[code]['price'], (product[code]['count'])]
+    with open('purchase_log.csv', 'a') as my_file:
+        writer = csv.writer(my_file, dialect='excel')
+        writer.writerow(product_log)
+
+def add_price_log(code, input_val):
+    notes_given = formatter(int(float(format(input_val - product[code]['price'], '.2f')) * 100), [1000, 500, 400, 200, 100, 50])
+    for note in notes_given:
+        price_log = [note, price['NGN'][note]]
+        with open('price_log.csv', 'a') as my_file:
+            writer = csv.writer(my_file)
+            writer.writerow(price_log)
+
+def add_price_log_1():
+    with open('price_log.csv', 'a') as my_file:
+        writer = csv.writer(my_file)
+        for row in sorted(price['NGN'].iteritems()):
+            writer.writerow(row)
+
+def note_check(code, input_val):
+    change_given = format(input_val - product[code]['price'], '.2f')
+    note_list = price['NGN'].keys()
+    if ((change_given in note_list or change_given == 0.0) and change_given != '0.0'):
+        note_count = price['NGN'][change_given]
+        if note_count > 1 or change_given == '0.0':
+            print(change_given, 'Exact Change cannot be ruturned')
+        else:
+            print(change_given)
+    else:
+        print(change_given)
+
+
+def purchase_test(code, input_val):
+    if code in product:
+        
