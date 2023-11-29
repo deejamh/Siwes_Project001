@@ -114,4 +114,45 @@ def note_check(code, input_val):
 
 def purchase_test(code, input_val):
     if code in product:
+        if input_val >= product[code]['price']:
+            if product[code]['count'] > 0:
+                change_given = format(input_val - product[code]['price'], '.2f')
+                notes_given = formatter(int(float(format(input_val - product[code]['price'], '.2f')) * 100), [1000, 500, 400, 200, 100, 50])
+                if float(change_given) == 0:
+                    product[code]['count'] -= 1
+                    add_change_log(code, input_val)
+                    add_product_log(code)
+                elif len(notes_given) > 0:
+                    if all(price['NGN'][note] > 0 for note in notes_given):
+                        product[code]['count'] -= 1
+                        for note in notes_given:
+                            price['NGN'][note] -= 1
+                        add_change_log(code, input_val)
+                        add_product_log(code)
+                        add_price_log(code, input_val)
+                    else:
+                        with open('changes.txt', 'a') as my_file:
+                            my_file.write("can't return change\n")
+                else:
+                    with open('changes.txt', 'a') as my_file:
+                        my_file.write("Items out of Stock\n")
+            else:
+                with open('changes.txt', 'a') as my_file:
+                    my_file.write("Insufficient funds\n")
+        else:
+            with open('change.txt', 'a') as my_file:
+                my_file.write("Wrong code Insreted\n")
+        notes_given = formatter(int(float(format(input_val - product[code]['price'], '.2f')) * 100), [1000, 500, 400, 200, 100, 50])
+        return notes_given
+def prod_update_csv(in_csv, out_csv):
+    if os.path.exists('purchase_log.csv') is False:
+        open('purchase_log.csv', 'w')
+    upd_product = product_dict(in_csv)
+    full = product.keys()
+    current = upd_product.keys()
+    missing = list(set(full) - set(current))
+    for i in missing:
+        upd_product[i] = product[i]
+    fields = ['product-name', 'price', 'count']
+    with open(out_csv, 'w') as out_file:
         
