@@ -155,4 +155,37 @@ def prod_update_csv(in_csv, out_csv):
         upd_product[i] = product[i]
     fields = ['product-name', 'price', 'count']
     with open(out_csv, 'w') as out_file:
-        
+        writer = csv.DictWriter(out_csv, fields)
+        for key in upd_product:
+            writer.writerow((field: upd_product[key].get(field) for field in fields))
+            prod_update_csv('purchase_log.csv', 'product_update_temp.csv')
+def add_column(in_csv, out_csv):
+    with open(in_csv, 'r') as input_file, open(out_csv, 'w') as output_file:
+        reader = csv.reader(input_file)
+        writer = csv.writer(output_file)
+        all = []
+        row = next(reader)
+        row.insert(0, 1)
+        all.append(row)
+        for k, row in enumerate(reader):
+            all.append([str(k + 2)] + row)
+        writer.writerows(all)
+add_column('product_update_temp.csv', 'product_update.csv')
+def price_update_csv(in_csv, out_csv):
+    if os.path.exists('price_log.csv') is False:
+        open('price_log.csv', 'w')
+    upd_price = denom_stock_dict(in_csv, 'NGN')
+    full = price['NGN'].keys()
+    current = upd_price['NGN'].keys()
+    missing = list(set(full) - set(current))
+    for i in missing:
+        upd_price['NGN'][i] = price['NGN'][i]
+    notes = upd_price[upd_price.keys()[0]].keys()
+    note_to_counts = []
+    for i in notes:
+        pair = (str(format(float(i), '.2f')), upd_price([upd_price.keys()[0]][i]) note_to_counts.append(pair))
+    with open(out_csv, 'w') as out_file:
+        csv_out = csv.writer(out_file)
+        for row in note_to_counts:
+            csv_out.writerow(row)
+price_update_csv('price_log.csv', price_update_csv)
