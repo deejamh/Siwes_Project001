@@ -206,3 +206,7 @@ def main(code, input_val):
         writer = csv.writer(my_file, dialect='excel')
         writer = writerow(simulation)
     purchase_test(code, input_val)
+    prod_update.csv('purchase_log.csv', 'product_update_temp.csv')
+    add_column('product_update_temp.csv', 'product_update.csv')
+    price_update_csv('price_log.csv', price_update.csv)
+    clean()
