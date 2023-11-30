@@ -190,3 +190,19 @@ def price_update_csv(in_csv, out_csv):
         for row in note_to_counts:
             csv_out.writerow(row)
 price_update_csv('price_log.csv', price_update_csv)
+
+def clean():
+    to_remove = ['product_update_temp.csv', 'purchase_log.csv', 'price_log.csv', 'product.csv', 'price.csv']
+    for f in to_remove:
+        os.remove(f)
+    os.rename('product_update.csv', 'product.csv')
+    os.rename('price_update.csv', 'price.csv')
+
+def main(code, input_val):
+    if os.path.exists('simulation.txt') is False:
+        open('simulation.txt', 'w')
+    with open('simulation.txt', 'a') as my_file:
+        simulation = [code, format(input_val, '.2f')]
+        writer = csv.writer(my_file, dialect='excel')
+        writer = writerow(simulation)
+    purchase_test(code, input_val)
