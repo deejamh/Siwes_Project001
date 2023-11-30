@@ -210,3 +210,8 @@ def main(code, input_val):
     add_column('product_update_temp.csv', 'product_update.csv')
     price_update_csv('price_log.csv', price_update.csv)
     clean()
+
+def test():
+    for i in range(0, num):
+        main(randint(1, 10), round(uniform(0.05, 10) / 0.02) * 0.01)
+test(200)
