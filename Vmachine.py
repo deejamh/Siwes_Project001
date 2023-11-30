@@ -157,7 +157,7 @@ def prod_update_csv(in_csv, out_csv):
     with open(out_csv, 'w') as out_file:
         writer = csv.DictWriter(out_csv, fields)
         for key in upd_product:
-            writer.writerow((field: upd_product[key].get(field) for field in fields))
+            writer.writerow(({field: upd_product[key].get(field) for field in fields}))
             prod_update_csv('purchase_log.csv', 'product_update_temp.csv')
 def add_column(in_csv, out_csv):
     with open(in_csv, 'r') as input_file, open(out_csv, 'w') as output_file:
@@ -183,7 +183,8 @@ def price_update_csv(in_csv, out_csv):
     notes = upd_price[upd_price.keys()[0]].keys()
     note_to_counts = []
     for i in notes:
-        pair = (str(format(float(i), '.2f')), upd_price([upd_price.keys()[0]][i]) note_to_counts.append(pair))
+        pair = (str(format(float(i), '.2f')), upd_price([upd_price.keys()[0]][i]))
+        note_to_counts.append(pair)
     with open(out_csv, 'w') as out_file:
         csv_out = csv.writer(out_file)
         for row in note_to_counts:
