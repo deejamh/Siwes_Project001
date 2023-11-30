@@ -204,14 +204,14 @@ def main(code, input_val):
     with open('simulation.txt', 'a') as my_file:
         simulation = [code, format(input_val, '.2f')]
         writer = csv.writer(my_file, dialect='excel')
-        writer = writerow(simulation)
+        writer.writerow(simulation)
     purchase_test(code, input_val)
-    prod_update.csv('purchase_log.csv', 'product_update_temp.csv')
+    prod_update_csv('purchase_log.csv', 'product_update_temp.csv')
     add_column('product_update_temp.csv', 'product_update.csv')
-    price_update_csv('price_log.csv', price_update.csv)
+    price_update_csv('price_log.csv', 'price_update.csv')
     clean()
 
-def test():
+def test(num):
     for i in range(0, num):
         main(randint(1, 10), round(uniform(0.05, 10) / 0.02) * 0.01)
 test(200)
