@@ -1,16 +1,16 @@
-Code,Item,Stock
-01,Gala,50
-02,Cheese ball,50
-03,Egg Roll,50
-04,Porcorn,50
-05,Munchit ,50
-06,Samosa,50
-07,Meat Pie,50
-08,CupCake,50
-09,Can Sprite,50
-10,Maltina,50
-11,Sneakers Choc olate,50
-12,Biscuits,50
-13,Wafers,50
-14,water,50
-15,Candy,50
+Product_id,Name,Quantity,Price,Currency
+1,Gala,50,500.00,NGN
+2,Cheese ball,50,450.05,NGN
+3,Egg Roll,50,340,NGN
+4,Porcorn,50,120.99,NGN
+5,Munchit,50,600.01,NGN
+6,Samosa,50,380.08,NGN
+7,Meat Pie,50,900.00,NGN
+8,CupCake,50,330.05,NGN
+9,Can Sprite,50,250.99,NGN
+10,Maltina,50,250.99,NGN
+11,Sneakers Choc olate,50,700.89,NGN
+12,Biscuits,50,950.66,NGN
+13,Wafers,50,500.87,NGN
+14,water,50,90.90,NGN
+15,Candy,50,550.09,NGN
